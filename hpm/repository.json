@@ -4,8 +4,8 @@
   "payPalUrl": "https://www.paypal.com/donate/?hosted_button_id=AUVS8XKXF5ZM8",
   "packages": [
     {
-      "id": "7cd3944c-c6ed-4c2e-a668-47e4eaa07d0d",
-      "name": "v0.0.1",
+      "id": "e02cfbd2-7e5b-4d5b-820f-a6b4ce3f3407",
+      "name": "Hubitat Hayward AquaConnect",
       "category": "Control",
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/hpm/packageManifest.json",
       "description": "Hubitat Hayward AquaConnect integration (v0.0.1)",
