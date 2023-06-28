@@ -1,4 +1,4 @@
-# HubitatHaywardAquaConnect
+# Hubitat Hayward AquaConnect
 Hubitat Integration for Hayward AquaConnect
 
 The goal of this project is to connect my pool to my home automation network via Hubitat.  A secondary goal was to eliminate the Hayward AquaConnect from talking to the cloud service over the internet due to security concerns (the device talks to the cloud via an insecure port 80).
