@@ -8,6 +8,7 @@ My Pool setup consists of:
 * Jandy JXL 400K BTU Pool Heater
 * Hayward AquaConnect AQ-CO-HOMENET
 * Hayward Goldline AQL2-BASE-RF AquaConnect Wireless Antenna
+* Hayward ColorLogic Lights
 
 I also have a Hubitat C8 Hub and use the Google Home app with the Google Home Community app.
 
@@ -18,3 +19,6 @@ This app allows the Hubitat to communicate directly to the Hayward AquaConnect d
 Note this app is in BETA release.  It works for my use-case, but your configuration may differ.  Of particular importance is the use of the Heater.  I take no liability if your heater turns on unexpectedly and runs up your Gas or Electric bill.
 
 One of the items I wanted to fix with this interface is how the Heater turns on and off.  In the default setup provided by Hayward, I have to rotate the temperature from Off to 104 down to the number I want to set it on every time I turn the heater on (and vice-versa to turn it off).  This interface is extermely cumbersome.  For my hubitat interface, you need to configure the heatingSetPoint to the temperature you desire when the heater is on.  The on/off switch is then a one-time action where the code takes care of rotating through the range of temperatures.  In this way you only need to configure the heatingSetPoint once, and then use the On/Off switch (single button press) and the code will take care of driving through the menu selections and the temperature rotations (usually in excess of 20 button presses without my interface -- very poor design).
+
+Known Limitiations
+The Pool Temperature is not updated when the pool filter is off.
