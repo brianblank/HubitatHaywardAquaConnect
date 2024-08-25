@@ -1,8 +1,8 @@
 {
   "packageName": "Hubitat Hayward AquaConnect",
   "author": "Brian Blank",
-  "version": "0.0.1",
-  "minimumHEVersion": "0.0.1",
+  "version": "0.0.2",
+  "minimumHEVersion": "2.3.9.174",
   "dateReleased": "2023-06-28",
   "apps": [
     {
@@ -12,7 +12,8 @@
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/src/app-HaywardAquaConnect.groovy",
       "required": true,
       "oauth": false,
-      "primary": false
+      "primary": false,
+      "version": "0.0.2"
     }
   ],
   "drivers": [
@@ -21,28 +22,32 @@
       "name": "Hayward Heater Switch",
       "namespace": "brianblank",
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/src/driver-HaywardHeaterSwitch.groovy",
-      "required": true
+      "required": true,
+      "version": "0.0.2"
     },
     {
       "id": "328ffe5c-4e5f-4949-9a25-5d9e38c5f871",
       "name": "Hayward Salt Sensor",
       "namespace": "brianblank",
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/src/driver-HaywardSaltSensor.groovy",
-      "required": true
+      "required": true,
+      "version": "0.0.1"
     },
     {
       "id": "b1558670-29c6-4fee-8d5a-63b71c68d968",
       "name": "Hayward Switch",
       "namespace": "brianblank",
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/src/driver-HaywardSwitch.groovy",
-      "required": true
+      "required": true,
+      "version": "0.0.1"
     },
     {
       "id": "c9fef199-786d-4464-b91a-f06ccb7fdbae",
       "name": "Hayward Temperature Sensor",
       "namespace": "brianblank",
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/src/driver-HaywardTemperatureSensor.groovy",
-      "required": true
+      "required": true,
+      "version": "0.0.1"
     }
   ]
 }
