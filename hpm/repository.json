@@ -8,7 +8,7 @@
       "name": "Hubitat Hayward AquaConnect",
       "category": "Control",
       "location": "https://raw.githubusercontent.com/brianblank/HubitatHaywardAquaConnect/main/hpm/packageManifest.json",
-      "description": "Hubitat Hayward AquaConnect integration (v0.0.1)",
+      "description": "Hubitat Hayward AquaConnect integration (v0.0.2)",
       "tags": [
         "Pools & Spas"
       ]
