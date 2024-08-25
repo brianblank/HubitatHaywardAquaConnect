@@ -2,9 +2,12 @@ metadata {
    definition (name: "Hayward Heater Switch", namespace: "brianblank", author: "Brian Blank") {
        capability "Switch"
        capability "Thermostat Heating Setpoint"
+       capability "Temperature Measurement"
+       
+       // command "setTemperature", ["NUMBER"]
 
        // attribute switch - ENUM ["on", "off"]
-       // attribute heatingSetpoint - NUMBER, unit:캟 || 캜
+       // attribute heatingSetpoint - NUMBER, unit:째F || 째C
        attribute "currentHeatingValue", "String"
    }
 
@@ -22,9 +25,13 @@ private sendEvent(name, val) {
 	sendEvent(name: "${name}", value: val, descriptionText: getDescriptionText("${name} is ${val}"), isStateChange: true)
 }
 
+private sendTemperatureEvent(name, val) {
+	sendEvent(name: "${name}", value: val, unit: "째${getTemperatureScale()}", descriptionText: getDescriptionText("${name} is ${val} 째${getTemperatureScale()}"), isStateChange: true)
+}
+
 def setState(state) {
     log.debug "'${device.displayName}'.setState('${state}') was called"
-    sendEvent("switch", "${state}")
+    sendEvent("physicalSwitch", "${state}")
 }
 
 def void installed() {
@@ -67,6 +74,7 @@ def void off() {
     if(parent.logEnabled) log.debug "${device.displayName} off()"
     if(parent.logEnabled) log.debug "device.currentValue('switch') == '${device.currentValue("switch")}'"
     if(! device.currentValue("currentHeatingValue").equals("off")) {
+        sendEvent("switch", "off")
         changeTemperatureSettingStep1("off")
     }
 }
@@ -75,6 +83,7 @@ def void on() {
     if(parent.logEnabled) log.debug "${device.displayName} on()"
     if(parent.logEnabled) log.debug "device.currentValue('switch') == '${device.currentValue("switch")}'"
     if(! device.currentValue("currentHeatingValue").equals("${device.currentValue("heatingSetpoint")}")) {
+        sendEvent("switch", "on")
         changeTemperatureSettingStep1("${device.currentValue("heatingSetpoint")}")
     }
 }
@@ -128,4 +137,9 @@ def changeTemperatureSettingStep3(String newTemp) {
     } else {
         if(parent.logEnabled) log.debug getDescriptionText("changeTemperatureSettingStep3(${newTemp}); currTemp='${currTemp}'")
     }
+}
+
+def setTemperature(temperature) {
+	"'${device.displayName}'.setTemperature(${temperature}) was called"
+	sendTemperatureEvent("temperature", temperature)
 }
