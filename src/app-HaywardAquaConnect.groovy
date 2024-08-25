@@ -161,11 +161,29 @@ def processResponse(response, data) {
             heaterSwitch.setState(heaterState)
         }
 
+        // haywardDataRawLeds
+        // 2: D, Filter Off    E, Filter On
+        // 3: C: Lights Off    S, Lights On
+        // 4: D: Heater Off    T: Heater On
+        // TECD4C333333	Heater Off
+        // TECT4C333333	Heater On
+        // TESD4C333333  <-- Lights On, Filter On
+        // TDSD4C333333  <-- Lights On, Filter Off
+        // TDCD4C333333  <-- Lights Off, Filter OFf
+        // TECD4C333333  <-- Lights Off, Filter On
+        // DE    44 45     
+        // CS    43 53
+        // DT    44 54
+
         if(logEnabled) log.debug "haywardDataRawLeds='${haywardDataRawLeds}'; filterState='${filterState}'; lightsState='${lightsState}'; heaterState='${heaterState}'"
         if(logEnabled) log.debug "Response Line 2: '${responseLines[1]}'"
         if(logEnabled) log.debug "Response Line 1: '${responseLines[0]}'"
         
         switch (responseLines[0]) {
+            case "Heater1":
+                  def String haywardDataHeater1 = responseLines[1]
+                  if(logEnabled) log.debug "haywardDataHeater1 = ${haywardDataHeater1}"
+            break
             case "Salt Level":
                   def long haywardDataSaltLevel = responseLines[1].split(' ')[0].toInteger()
                   def saltSensor = getChildDevice("HaywardSaltSensor_${app.id}")
@@ -179,7 +197,7 @@ def processResponse(response, data) {
                   if(logEnabled) log.debug "haywardDataPoolChlorinator = ${haywardDataPoolChlorinator}"
             break
             case ~/^Air Temp.*/:
-                  def short haywardDataAirTemp = responseLines[0].substring(11, responseLines[0].length() - 6).toInteger()
+                  def short haywardDataAirTemp = responseLines[0].substring(9, responseLines[0].length() - 6).toInteger()
                   def airTemp = getChildDevice("HaywardAirTemp_${app.id}")
                   if(haywardDataAirTemp != airTemp.currentValue("temperature") ) { // airTemp.currentTemperature) {
                       airTemp.setTemperature(haywardDataAirTemp)
@@ -187,10 +205,13 @@ def processResponse(response, data) {
                   if(logEnabled) log.debug "haywardDataAirTemp = ${haywardDataAirTemp}"
             break
             case ~/^Pool Temp.*/:
-                  def short haywardDataPoolTemp = responseLines[0].substring(11, responseLines[0].length() - 6).toInteger()
+                  def short haywardDataPoolTemp = responseLines[0].substring(10, responseLines[0].length() - 6).toInteger()
                   def poolTemp = getChildDevice("HaywardPoolTemp_${app.id}")
-                  if(haywardDataPoolTemp != poolTemp.currentValue("temperature") ) { // poolTemp.currentTemperature) {
+                  if(haywardDataPoolTemp != poolTemp.currentValue("temperature") ) {
                       poolTemp.setTemperature(haywardDataPoolTemp)
+                  }
+                  if(haywardDataPoolTemp != heaterSwitch.currentValue("temperature") ) {
+                      heaterSwitch.setTemperature(haywardDataPoolTemp)
                   }
                   if(logEnabled) log.debug "haywardDataPoolTemp = ${haywardDataPoolTemp}"
             break
